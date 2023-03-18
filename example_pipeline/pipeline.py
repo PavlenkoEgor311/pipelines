@@ -4,25 +4,25 @@ NAME = 'test_project'
 VERSION = '2023'
 
 TASKS = [
-    tasks.RunSQL('drop table original;'),
-    tasks.RunSQL('drop table norm;'),
-
-    # tasks.LoadFile(input_file='data/original.csv', table='original'),
-    # tasks.CTAS(
-    #     table='norm',
-    #     sql_query='''
-    #         select *, domain_of_url(url)
-    #         from original
-    #     '''
-    # ),
-    # tasks.CopyToFile(
-    #     table='norm',
-    #     output_file='data/norm',
-    # ),
-
-    # # clean up:
     # tasks.RunSQL('drop table original;'),
     # tasks.RunSQL('drop table norm;'),
+
+    tasks.LoadFile(input_file='data/original.csv', table='original'),
+    tasks.CTAS(
+        table='norm',
+        sql_query='''
+            select *, domain_of_url(url)
+            from original
+        '''
+    ),
+    tasks.CopyToFile(
+        table='norm',
+        output_file='data/norm',
+    ),
+
+    # clean up:
+    tasks.RunSQL('drop table original;'),
+    tasks.RunSQL('drop table norm;'),
 ]
 
 pipeline = Pipeline(
