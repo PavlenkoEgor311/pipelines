@@ -5,11 +5,12 @@ from .utils import print_error
 
 
 class DbConnection:
+
     def __init__(self):
         try:
             self.connection = psycopg2.connect(user="postgres",
                                                password="1234qwe",
-                                               host="localhost",
+                                               host="db",
                                                port="5432",
                                                database="pipelines")
             self.connection.autocommit = True
@@ -17,6 +18,14 @@ class DbConnection:
         except (Exception, Error) as error:
             print_error(f"Error PostgreSQL: {error}")
             sys.exit(1)
+
+    # def __init__(self, user, password, host, port, dbname):
+    #     try:
+    #         self.conn = psycopg2.connect(user=user, password=password, host=host, port=port, database=dbname)
+    #         self.conn.autocommit = True
+    #         self.cursor = self.conn.cursor()
+    #     except (Exception, Error) as error:
+    #         print("Ошибка при работе с PostgreSQL", error)
 
     def run_query(self, query):
         try:

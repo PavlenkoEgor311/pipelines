@@ -1,0 +1,64 @@
+version: "3.8"
+
+services:
+  db:
+    restart: always
+    build: ./db/
+    ports:
+      - "5460:5432"
+  pipeline:
+    build: .
+    container_name: pipeline-pavlenko
+    command: python pipeline.py --host 0.0.0.0 --port 5432
+    volumes:
+      - .:/MyPipelines/
+    ports:
+      - "8081:8081"
+
+
+
+
+
+
+
+#version: '3.8'
+#services:
+#  pipelines:
+#    build: ./
+#    ports:
+#      - "8000:8000"
+#    depends_on:
+#      db:
+#        condition: service_healthy
+#    environment:
+#      - POSTGRES_HOST=db
+#      - POSTGRES_DB=pipelines
+#      - POSTGRES_USER=postgres
+#      - POSTGRES_PASSWORD=12345
+#    volumes:
+#      - ./example_pipeline/original/original.csv:/pipelines/example_pipeline/original/original.csv
+#  db:
+#    restart: always
+#    build: ./db/
+#    ports:
+#      - "5432:5432"
+#    healthcheck:
+#      test : ["CMD-SHELL", "pg_isready --username=postgres -p 5432"]
+#      interval: 10s
+#      timeout: 5s
+#      retries: 5
+
+#postgres:
+#    build: ./
+#    image: postgres:11.6
+#    container_name: localpostgres
+#    environment:
+#      POSTGRES_DB: ${POSTGRES_DB:-mydb}
+#      POSTGRES_USER: ${POSTGRES_USER:-debug}
+#      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-debug}
+#      POSTGRES_PORT: ${POSTGRES_PORT:-5432}
+#      POSTGRES_HOST: ${POSTGRES_HOST:-postgres}
+#    volumes:
+#      - /opt/homebrew/var/postgresql@14:/var/lib/postgresql/data
+#    ports:
+#      - "127.0.0.1:5432:5432"

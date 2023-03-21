@@ -1,7 +1,18 @@
 from pipelines.database import DbConnection
 
-db = DbConnection()
+# BASE_DIR = Path(__file__).resolve().parent.parent
+# load_dotenv(os.path.abspath(BASE_DIR / 'config' / '.env'))
+#
+# SECRET_KEY = os.getenv('SECRET_KEY')
+#
+# db = DbConnection(user=os.getenv('user'),
+#                   password=os.getenv('password'),
+#                   host=os.getenv('host'),
+#                   port=os.getenv('port'),
+#                   dbname=os.getenv('database')
+#                   )
 
+db = DbConnection()
 
 class BaseTask:
     """Base Pipeline Task"""
