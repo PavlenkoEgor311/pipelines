@@ -10,7 +10,7 @@ class DbConnection:
         try:
             self.connection = psycopg2.connect(user="postgres",
                                                password="1234qwe",
-                                               host="db",
+                                               host="localhost",
                                                port="5432",
                                                database="pipelines")
             self.connection.autocommit = True

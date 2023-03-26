@@ -1,7 +1,6 @@
 from setuptools import setup
 from setuptools import find_packages
 
-
 setup(
     name='pipelines',
     version='0.1.0',
@@ -11,7 +10,7 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'pipelines = pipelines:cli',
+            'pipelines = pipelines.cli:main'
         ],
     },
 )
