@@ -7,7 +7,7 @@ TASKS = [
     # tasks.RunSQL('drop table original;'),
     # tasks.RunSQL('drop table norm;'),
 
-    tasks.LoadFile(input_file='example_pipeline/data/original.csv', table='original'),
+    tasks.LoadFile(input_file='example_pipeline/data/original.csv', table='original', columns=['name', 'url']),
     tasks.CTAS(
         table='norm',
         sql_query='''

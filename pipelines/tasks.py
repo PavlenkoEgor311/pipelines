@@ -45,16 +45,17 @@ class CopyToFile(BaseTask):
 class LoadFile(BaseTask):
     """Load file to table"""
 
-    def __init__(self, table, input_file):
+    def __init__(self, table, input_file, columns):
         self.table = table
         self.input_file = input_file
+        self.columns = columns
 
     def short_description(self):
         return f'{self.input_file} -> {self.table}'
 
     def run(self):
-        db.run_query(f"CREATE TABLE IF NOT EXISTS {self.table} (id SERIAL PRIMARY KEY, name varchar, url varchar)")
-        db.load_data_to_table(self.input_file, self.table)
+        columns_str = ', '.join([f'{col} varchar' for col in self.columns])
+        db.run_query(f"CREATE TABLE IF NOT EXISTS {self.table} (id SERIAL PRIMARY KEY, {columns_str})")
         print(f"Load file `{self.input_file}` to table `{self.table}`")
 
 
